@@ -47,6 +47,7 @@ if (empCheck === IS_ABSENT) {
   let empDailyWageArr = [];
   let empDailyWageMap = new Map();
   let empDailyHrsMap = new Map();
+  let empDailyHrsAndWageArr = [];
 
   while (
     totalEmpHrs <= MAX_HRS_IN_MONTH &&
@@ -60,6 +61,14 @@ if (empCheck === IS_ABSENT) {
     empDailyWageArr.push(dailyWage);
     empDailyWageMap.set(totalWorkingDays, dailyWage);
     empDailyHrsMap.set(totalWorkingDays, empHrs);
+    empDailyHrsAndWageArr.push({
+      dayNum: totalWorkingDays,
+      dailyHours: empHrs,
+      dailyWage: calcDailyWage(empHrs),
+      toString() {
+        return `Day ${this.dayNum}: Hours: ${this.dailyHours}, Wage: ${this.dailyWage}`;
+      },
+    });
   }
 
   let totalEmpWage = calcDailyWage(totalEmpHrs);
@@ -73,6 +82,8 @@ if (empCheck === IS_ABSENT) {
   );
   console.log("Daily Wages: " + empDailyWageArr);
   console.log("Daily Wage Map: " + empDailyWageMap);
+  console.log("Showing Daily Hours Worked and Wage Earned: ");
+  console.log(empDailyHrsAndWageArr);
 
   // UC7 - Use the Daily Wage Array to perform various operations using Array Helper Functions
 
@@ -105,7 +116,7 @@ if (empCheck === IS_ABSENT) {
 
   // UC 7C: Show Days when Full time wage of 160 were earned
   function fulltimeWage(dailyWage) {
-    return dailyWage.includes("60");
+    return dailyWage === 160;
   }
   let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
   console.log("Daily Wage Filter When Fulltime Wage Earned:");
@@ -187,4 +198,9 @@ if (empCheck === IS_ABSENT) {
   console.log("Full Working Days: " + fullWorkingDays);
   console.log("Part Working Days: " + partWorkingDays);
   console.log("Non-Working Days: " + nonWorkingDays);
+
+  // UC10 - Store the Day, Hours Worked and Wage Earned in a single object
+  console.log(
+    "Showing Daily Hours Worked and Wage Earned: " + empDailyHrsAndWageArr
+  );
 }
