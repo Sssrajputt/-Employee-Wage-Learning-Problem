@@ -203,4 +203,46 @@ if (empCheck === IS_ABSENT) {
   console.log(
     "Showing Daily Hours Worked and Wage Earned: " + empDailyHrsAndWageArr
   );
+
+  // UC11 - Perform Object operations using Arrow Functions
+
+  // UC 11A: Calculate total Wage and total hours worked
+  totalWages = empDailyHrsAndWageArr
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyWage > 0)
+    .reduce(
+      (totalWage, dailyHrsAndWage) => (totalWage += dailyHrsAndWage.dailyWage),
+      0
+    );
+
+  totalHours = empDailyHrsAndWageArr
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHours > 0)
+    .reduce(
+      (totalHours, dailyHrsAndWage) =>
+        (totalHours += dailyHrsAndWage.dailyHours),
+      0
+    );
+  console.log("Total Hours: " + totalHours + " Total Wages: " + totalWages);
+
+  // UC 11B: Show the full working days using foreach
+  process.stdout.write("Logging full work days: ");
+  empDailyHrsAndWageArr
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHours == 8)
+    .forEach((dailyHrsAndWage) =>
+      process.stdout.write(dailyHrsAndWage.toString() + "\n")
+    );
+
+  // UC 11C: Show Part working days using Map by reducing to String Array
+  let partWorkingDayStrArr = empDailyHrsAndWageArr
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHours == 4)
+    .map((dailyHrsAndWage) => dailyHrsAndWage.toString());
+
+  console.log("Part Working Days String: " + partWorkingDayStrArr);
+
+  // UC 11D: Show Non-Working days using Map by reducing to Number Array
+
+  let nonWorkingDaysNums = empDailyHrsAndWageArr
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHoura == 0)
+    .map((dailyHrsAndWage) => dailyHrsAndWage.dayNum);
+
+  console.log("Non-Working Days Nums: " + nonWorkingDaysNums);
 }
