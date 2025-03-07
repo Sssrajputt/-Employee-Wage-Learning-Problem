@@ -50,4 +50,27 @@ if (empCheck === IS_ABSENT) {
   }
   let totalEmpWage = totalEmpHrs * WAGE_PER_HOUR;
   console.log("Total Hrs: " + totalEmpHrs + " Emp Wage: " + totalEmpWage);
+
+  // UC5 - Calculate Wages till a condition of total working hours of 160 or max days of 20 is reached for a month
+
+  const MAX_HRS_IN_MONTH = 160;
+  let totalWorkingDays = 0;
+  totalEmpHrs = 0;
+  while (
+    totalEmpHrs <= MAX_HRS_IN_MONTH &&
+    totalWorkingDays < NUM_OF_WORKING_DAYS
+  ) {
+    totalWorkingDays += 1;
+    empCheck = Math.floor(Math.random() * 10) % 3;
+    totalEmpHrs += getWorkingHours(empCheck);
+  }
+  empWage = totalEmpHrs * WAGE_PER_HOUR;
+  console.log(
+    "Total days: " +
+      totalWorkingDays +
+      " Total Hrs: " +
+      totalEmpHrs +
+      " Total Wages: " +
+      empWage
+  );
 }
