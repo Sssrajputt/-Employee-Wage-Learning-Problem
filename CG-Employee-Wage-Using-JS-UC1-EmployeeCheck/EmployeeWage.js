@@ -39,4 +39,15 @@ if (empCheck === IS_ABSENT) {
   empHrs = getWorkingHours(empCheck);
   let empWage = empHrs * WAGE_PER_HOUR;
   console.log("Employee Wage: " + empWage);
+
+  // UC4 - Calculating Wages for a Month assuming 20 Working Days in a Month
+
+  const NUM_OF_WORKING_DAYS = 20;
+  let totalEmpHrs = 0;
+  for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {
+    empCheck = Math.floor(Math.random() * 10) % 3;
+    totalEmpHrs += getWorkingHours(empCheck);
+  }
+  let totalEmpWage = totalEmpHrs * WAGE_PER_HOUR;
+  console.log("Total Hrs: " + totalEmpHrs + " Emp Wage: " + totalEmpWage);
 }
