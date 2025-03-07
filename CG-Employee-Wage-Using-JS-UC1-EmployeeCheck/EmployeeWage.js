@@ -45,6 +45,7 @@ if (empCheck === IS_ABSENT) {
   let totalEmpHrs = 0;
   let totalWorkingDays = 0;
   let empDailyWageArr = [];
+  let empDailyWageMap = new Map();
 
   while (
     totalEmpHrs <= MAX_HRS_IN_MONTH &&
@@ -54,13 +55,22 @@ if (empCheck === IS_ABSENT) {
     empCheck = Math.floor(Math.random() * 10) % 3;
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
-    empDailyWageArr.push(calcDailyWage(empHrs));
+    let dailyWage = calcDailyWage(empHrs);
+    empDailyWageArr.push(dailyWage);
+    empDailyWageMap.set(totalWorkingDays, dailyWage);
   }
 
   let totalEmpWage = calcDailyWage(totalEmpHrs);
-  console.log("Total Days: " + totalWorkingDays + " Total Hrs: " +
-totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
+  console.log(
+    "Total Days: " +
+      totalWorkingDays +
+      " Total Hrs: " +
+      totalEmpHrs +
+      " Total Emp Wage: " +
+      totalEmpWage
+  );
   console.log("Daily Wages: " + empDailyWageArr);
+  console.log("Daily Wage Map: " + empDailyWageMap);
 
   // UC7 - Use the Daily Wage Array to perform various operations using Array Helper Functions
 
@@ -68,7 +78,13 @@ totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
   totalEmpWage = 0;
   empDailyWageArr.forEach((dailyWage) => (totalEmpWage += dailyWage));
   console.log(
-    "Total Days: " + totalWorkingDays + " Total Hrs: " + totalEmpHrs + " Emp Wage: " + totalEmpWage);
+    "Total Days: " +
+      totalWorkingDays +
+      " Total Hrs: " +
+      totalEmpHrs +
+      " Emp Wage: " +
+      totalEmpWage
+  );
 
   function totalWages(totalWage, dailyWage) {
     return totalWage + dailyWage;
@@ -97,7 +113,8 @@ totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
   function findFulltimeWage(dailyWage) {
     return dailyWage.includes("160");
   }
-  console.log("First time Fulltime wage was earned on Day: " +
+  console.log(
+    "First time Fulltime wage was earned on Day: " +
       mapDayWithWageArr.find(findFulltimeWage)
   );
 
@@ -105,7 +122,8 @@ totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
   function isAllFulltimeWage(dailyWage) {
     return dailyWage.includes("160");
   }
-  console.log("Check All Element have Full Time Wage: " +
+  console.log(
+    "Check All Element have Full Time Wage: " +
       fullDayWageArr.every(isAllFulltimeWage)
   );
 
@@ -113,8 +131,8 @@ totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
   function isAnyPartTimeWage(dailyWage) {
     return dailyWage.includes("80");
   }
-  console.log("Check If Any Part Time Wage: " +
-      mapDayWithWageArr.some(isAnyPartTimeWage)
+  console.log(
+    "Check If Any Part Time Wage: " + mapDayWithWageArr.some(isAnyPartTimeWage)
   );
 
   // UC 7G: Find the number Of days the Employee Worked
@@ -122,7 +140,18 @@ totalEmpHrs + " Total Emp Wage: " + totalEmpWage );
     if (dailyWage > 0) return numOfDays + 1;
     return numOfDays;
   }
-  console.log("Number of Days Emp Worked: " +
-      empDailyWageArr.reduce(totalDaysWorked, 0)
+  console.log(
+    "Number of Days Emp Worked: " + empDailyWageArr.reduce(totalDaysWorked, 0)
+  );
+
+  // UC8 - Store the Day and the Daily Wage along with the Total Wage using Map
+
+  function calcTotalWageFromMap(totalWage, dailyWage) {
+    return totalWage + dailyWage;
+  }
+
+  console.log(
+    "Emp Wage Map totalWages: " +
+      Array.from(empDailyWageMap.values()).reduce(calcTotalWageFromMap, 0)
   );
 }
