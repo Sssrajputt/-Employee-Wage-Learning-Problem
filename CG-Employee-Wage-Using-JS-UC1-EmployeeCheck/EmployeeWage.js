@@ -116,7 +116,7 @@ if (empCheck === IS_ABSENT) {
 
   // UC 7C: Show Days when Full time wage of 160 were earned
   function fulltimeWage(dailyWage) {
-    return dailyWage === 160;
+    return dailyWage.includes("160");
   }
   let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
   console.log("Daily Wage Filter When Fulltime Wage Earned:");
@@ -241,8 +241,25 @@ if (empCheck === IS_ABSENT) {
   // UC 11D: Show Non-Working days using Map by reducing to Number Array
 
   let nonWorkingDaysNums = empDailyHrsAndWageArr
-    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHoura == 0)
+    .filter((dailyHrsAndWage) => dailyHrsAndWage.dailyHours == 0)
     .map((dailyHrsAndWage) => dailyHrsAndWage.dayNum);
 
   console.log("Non-Working Days Nums: " + nonWorkingDaysNums);
+
+  // UC12 - Create Employee Payroll Data with id, name, and salary
+
+  class EmployeePayrollData {
+    constructor(id, name, salary) {
+      this.id = id;
+      this.name = name;
+      this.salary = salary;
+    }
+
+    toString() {
+      return `Employee [ID=${this.id}, Name=${this.name}, Salary=${this.salary}]`;
+    }
+  }
+
+  let employeePayrollData = new EmployeePayrollData(1, "Harshit", 50000);
+  console.log(employeePayrollData.toString());
 }
