@@ -258,6 +258,18 @@ if (empCheck === IS_ABSENT) {
     }
 
     // Getter and setter methods
+    get id() {
+      return this._id;
+    }
+    set id(id) {
+      let idRegex = RegExp("^[1-9][0-9]*$");
+      if (idRegex.test(id)) {
+        this._id = id;
+      } else {
+        throw "ID is Incorrect!";
+      }
+    }
+
     get name() {
       return this._name;
     }
@@ -267,6 +279,41 @@ if (empCheck === IS_ABSENT) {
         this._name = name;
       } else {
         throw "Name is Incorrect!";
+      }
+    }
+
+    get salary() {
+      return this._salary;
+    }
+    set salary(salary) {
+      let salaryRegex = RegExp("^[1-9][0-9]*$");
+      if (salaryRegex.test(salary)) {
+        this._salary = salary;
+      } else {
+        throw "Salary is Incorrect!";
+      }
+    }
+
+    get gender() {
+      return this._gender;
+    }
+    set gender(gender) {
+      let genderRegex = RegExp("^[MF]$");
+      if (genderRegex.test(gender)) {
+        this._gender = gender;
+      } else {
+        throw "Gender is Incorrect!";
+      }
+    }
+
+    get startDate() {
+      return this._startDate;
+    }
+    set startDate(startDate) {
+      if (startDate <= new Date()) {
+        this._startDate = startDate;
+      } else {
+        throw "Start Date is Incorrect!";
       }
     }
 
@@ -288,8 +335,11 @@ if (empCheck === IS_ABSENT) {
     let newEmployeePayrollData = new EmployeePayrollData(2, "Harsh", 30000, "F", new Date());
     console.log(newEmployeePayrollData.toString());
 
-    // Try setting an invalid name to see error handling
-    employeePayrollData.name = "divit";
+    // Try setting an invalid id, salary, gender, and start date to see error handling
+    employeePayrollData.id = 0;
+    employeePayrollData.salary = 0;
+    employeePayrollData.gender = "X";
+    employeePayrollData.startDate = new Date("2026-12-17");
   } catch (e) {
     console.error(e);
   }
