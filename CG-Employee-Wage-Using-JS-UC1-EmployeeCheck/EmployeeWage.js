@@ -249,17 +249,31 @@ if (empCheck === IS_ABSENT) {
   // UC12 - Create Employee Payroll Data with id, name, and salary
 
   class EmployeePayrollData {
-    constructor(id, name, salary) {
+    constructor(id, name, salary, gender, startDate) {
       this.id = id;
-      this.name = name;
+      this._name = name;
       this.salary = salary;
+      this.gender = gender;
+      this.startDate = startDate;
     }
 
+    // Getter and setter methods
+    get name() { return this._name; }
+    set name(name) { this._name = name; }
+
     toString() {
-      return `Employee [ID=${this.id}, Name=${this.name}, Salary=${this.salary}]`;
+      return `Employee [ID=${this.id}, Name=${this.name}, Salary=${this.salary}, Gender=${this.gender}, Start Date=${this.startDate}]`;
     }
   }
 
-  let employeePayrollData = new EmployeePayrollData(1, "Harshit", 50000);
+  let employeePayrollData = new EmployeePayrollData(1, "Harshit", 50000, "M", new Date());
   console.log(employeePayrollData.toString());
+
+  // Modify employee name and print again
+  employeePayrollData.name = "Divit";
+  console.log(employeePayrollData.toString());
+
+  // Create a new EmployeePayrollData instance and print
+  let newEmployeePayrollData = new EmployeePayrollData(2, "Harsh", 30000, "F", new Date());
+  console.log(newEmployeePayrollData.toString());
 }
