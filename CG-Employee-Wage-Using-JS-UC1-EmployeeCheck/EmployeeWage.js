@@ -246,7 +246,7 @@ if (empCheck === IS_ABSENT) {
 
   console.log("Non-Working Days Nums: " + nonWorkingDaysNums);
 
-  // UC12 - Create Employee Payroll Data with id, name, and salary
+  // UC12 - Create Employee Payroll Data with id, name, salary, gender, and start date
 
   class EmployeePayrollData {
     constructor(id, name, salary, gender, startDate) {
@@ -258,22 +258,39 @@ if (empCheck === IS_ABSENT) {
     }
 
     // Getter and setter methods
-    get name() { return this._name; }
-    set name(name) { this._name = name; }
+    get name() {
+      return this._name;
+    }
+    set name(name) {
+      let nameRegex = RegExp("^[A-Z][a-zA-Z]{2,}$");
+      if (nameRegex.test(name)) {
+        this._name = name;
+      } else {
+        throw "Name is Incorrect!";
+      }
+    }
 
     toString() {
       return `Employee [ID=${this.id}, Name=${this.name}, Salary=${this.salary}, Gender=${this.gender}, Start Date=${this.startDate}]`;
     }
   }
 
-  let employeePayrollData = new EmployeePayrollData(1, "Harshit", 50000, "M", new Date());
-  console.log(employeePayrollData.toString());
+  // Example usage of the updated EmployeePayrollData class
+  try {
+    let employeePayrollData = new EmployeePayrollData(1, "Harshit", 50000, "M", new Date());
+    console.log(employeePayrollData.toString());
 
-  // Modify employee name and print again
-  employeePayrollData.name = "Divit";
-  console.log(employeePayrollData.toString());
+    // Modify employee name and print again
+    employeePayrollData.name = "Divit";
+    console.log(employeePayrollData.toString());
 
-  // Create a new EmployeePayrollData instance and print
-  let newEmployeePayrollData = new EmployeePayrollData(2, "Harsh", 30000, "F", new Date());
-  console.log(newEmployeePayrollData.toString());
+    // Create a new EmployeePayrollData instance and print
+    let newEmployeePayrollData = new EmployeePayrollData(2, "Harsh", 30000, "F", new Date());
+    console.log(newEmployeePayrollData.toString());
+
+    // Try setting an invalid name to see error handling
+    employeePayrollData.name = "divit";
+  } catch (e) {
+    console.error(e);
+  }
 }
