@@ -46,6 +46,7 @@ if (empCheck === IS_ABSENT) {
   let totalWorkingDays = 0;
   let empDailyWageArr = [];
   let empDailyWageMap = new Map();
+  let empDailyHrsMap = new Map();
 
   while (
     totalEmpHrs <= MAX_HRS_IN_MONTH &&
@@ -58,6 +59,7 @@ if (empCheck === IS_ABSENT) {
     let dailyWage = calcDailyWage(empHrs);
     empDailyWageArr.push(dailyWage);
     empDailyWageMap.set(totalWorkingDays, dailyWage);
+    empDailyHrsMap.set(totalWorkingDays, empHrs);
   }
 
   let totalEmpWage = calcDailyWage(totalEmpHrs);
@@ -103,7 +105,7 @@ if (empCheck === IS_ABSENT) {
 
   // UC 7C: Show Days when Full time wage of 160 were earned
   function fulltimeWage(dailyWage) {
-    return dailyWage === 160;
+    return dailyWage.includes("60");
   }
   let fullDayWageArr = mapDayWithWageArr.filter(fulltimeWage);
   console.log("Daily Wage Filter When Fulltime Wage Earned:");
@@ -154,4 +156,35 @@ if (empCheck === IS_ABSENT) {
     "Emp Wage Map totalWages: " +
       Array.from(empDailyWageMap.values()).reduce(calcTotalWageFromMap, 0)
   );
+
+  // UC9 - Use the Daily Wage Map and Daily Hour Map to perform operations using Arrow Functions
+
+  // UC 9A: Calculate total Wage and total hours worked
+  const findTotal = (total, dailyVal) => total + dailyVal;
+  let totalHours = Array.from(empDailyHrsMap.values()).reduce(findTotal, 0);
+  let totalSalary = empDailyWageArr
+    .filter((dailyWage) => dailyWage > 0)
+    .reduce(findTotal, 0);
+
+  console.log(
+    "Emp Wage with Arrow: Total Hours: " +
+      totalHours +
+      " Total Wages: " +
+      totalSalary
+  );
+
+  // UC 9B: Show the full working days, part working days, and no working days
+  let nonWorkingDays = [];
+  let partWorkingDays = [];
+  let fullWorkingDays = [];
+
+  empDailyHrsMap.forEach((value, key) => {
+    if (value === 8) fullWorkingDays.push(key);
+    else if (value === 4) partWorkingDays.push(key);
+    else nonWorkingDays.push(key);
+  });
+
+  console.log("Full Working Days: " + fullWorkingDays);
+  console.log("Part Working Days: " + partWorkingDays);
+  console.log("Non-Working Days: " + nonWorkingDays);
 }
